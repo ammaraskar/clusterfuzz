@@ -13,6 +13,23 @@
 # limitations under the License.
 
 steps:
+- id: Initialize git
+  name: gcr.io/cloud-builders/git
+  entrypoint: /bin/bash
+  args:
+  - -exc
+  - |
+    # Cloud Build x GitHub integration uses source archives to fetch
+    # the source, rather than Git source fetching, and as a consequence
+    # does not include the .git/ directory. As a workaround, we clone
+    # the repository and reset it to this build's commit sha.
+    git clone 'https://github.com/ammaraskar/clusterfuzz' tmp
+    git -C tmp fetch origin "$COMMIT_SHA"
+    mv tmp/.git .git
+    rm -rf tmp
+- id: Lint
+  name: 'gcr.io/clusterfuzz-images/ci'
+  args: ['python', 'butler.py', 'lint']
 - name: 'gcr.io/clusterfuzz-images/ci'
   args: ['setup']
 - name: 'gcr.io/clusterfuzz-images/ci'
