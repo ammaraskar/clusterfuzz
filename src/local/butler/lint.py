@@ -21,7 +21,7 @@ from local.butler import common
 
 def execute(_):
   """Lint changed code."""
-  _, output = common.execute('git diff --name-only FETCH_HEAD')
+  _, output = common.execute('git diff --name-only master FETCH_HEAD')
 
   py_changed_file_paths = [
       f for f in output.splitlines() if f.endswith('.py') and
