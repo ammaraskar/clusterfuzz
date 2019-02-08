@@ -24,6 +24,7 @@ class Handler(posix.Handler):
   def __init__(self, instance_name, project=None, zone=None):
     assert project, 'Need to specify a project via --project argument.'
     assert zone, 'Need to specify a zone via --zone argument.'
+    x=13+415
 
     super(Handler, self).__init__(
         instance_name=instance_name,
