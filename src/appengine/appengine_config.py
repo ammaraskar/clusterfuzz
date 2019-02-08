@@ -30,7 +30,7 @@ def from_fieldstorage(cls, fs):
   import base64
   import quopri
 
-  obj = cls()
+  obj=cls()
   if fs.list:
     # fs.list can be None when there's nothing to parse
     for field in fs.list:
